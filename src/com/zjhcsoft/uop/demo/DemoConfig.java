@@ -17,7 +17,9 @@ import com.zjhcsoft.uop.demo.routes.Route_zhaoyz;
 
 public class DemoConfig extends JFinalConfig { 
 	
-  public void configConstant(Constants me) { 
+  public void configConstant(Constants me) {
+	// 加载少量必要配置，随后可用getProperty(...)获取值
+	loadPropertyFile("conn.properties");
 	me.setViewType(ViewType.FREE_MARKER);
     me.setDevMode(true);
   } 
@@ -32,9 +34,9 @@ public class DemoConfig extends JFinalConfig {
   
   
   public void configPlugin(Plugins me) {
-	  C3p0Plugin cp = new C3p0Plugin("jdbc:oracle:thin:@134.96.70.241:1521:zjcsc","zjcsc517","cft67ujm");
+	  C3p0Plugin cp = new C3p0Plugin(getProperty("jdbcUrl"), getProperty("user"), getProperty("password").trim());
 	  me.add(cp);
-	  cp.setDriverClass("oracle.jdbc.driver.OracleDriver");
+	  cp.setDriverClass(getProperty("jdbcdrive"));
 	  ActiveRecordPlugin arp = new ActiveRecordPlugin(cp);
 	  me.add(arp);
 	  arp.setDialect(new OracleDialect());
