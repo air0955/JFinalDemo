@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>UserList</title>
+<script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
+</head>
+<body>
+<div>
+   <h1>统一能力平台管理员列表</h1>
+     <#if (u_list?? & u_list?size >0)>
+       <table>
+         <tr><td>管理员账号名</td><td>显示名称</td><td>状态</td></tr>
+         <#list  u_list as user>
+            <tr><td>${(user.name)!''}</td><td>${(user.viewname)!''}</td><td>${(user.sts)!''}</td></tr>
+         </#list>
+        </table>
+     </#if>
+</div>
+
+<div>
+   <form action="/userManage/user_add" method="POST" id="user_reg_form">
+       <p>管理员账号名：<input type="text" name="username" id="username" value=""/></p>
+       <p>管理员账号显示名称：<input type="text" name="userViewname" value=""/></p>
+       <p>管理员密码：<input type="password" name="psword" id="psword"  value=""/></p>
+       <p>管理员密码确认：<input type="password" name="psword_check" id="psword_check"  value=""/></p>
+       <p><a id="form_sub">提交</a></p>   
+   </form>
+
+
+</div>
+
+
+</body>
+<script type="text/javascript">
+var $j=jQuery.noConflict();
+
+$j('#form_sub').click(function(e){
+	e.preventDefault();
+    $j('#user_reg_form').submit();
+})
+
+
+</script>
+</html>
