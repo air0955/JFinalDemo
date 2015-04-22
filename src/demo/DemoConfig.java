@@ -40,6 +40,7 @@ me.add("/inputTest",HelloController.class);
   
   public void TestGit(){
 	  System.out.println("2222");
+	  System.out.println("3333");
   }
   
 } 
