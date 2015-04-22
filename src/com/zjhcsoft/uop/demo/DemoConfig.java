@@ -13,7 +13,7 @@ import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.render.ViewType;
 import com.zjhcsoft.uop.demo.models.S_userModel;
 import com.zjhcsoft.uop.demo.routes.Route_gulc;
-import com.zjhcsoft.uop.demo.routes.Route_zhaoyz;
+import com.zjhcsoft.uop.demo.routes.RouteDemo;
 
 public class DemoConfig extends JFinalConfig { 
 	
@@ -27,7 +27,7 @@ public class DemoConfig extends JFinalConfig {
   
   
   public void configRoute(Routes me) {
-	  me.add(new Route_zhaoyz());
+	  me.add(new RouteDemo());
 	  me.add(new Route_gulc());
   } 
   
