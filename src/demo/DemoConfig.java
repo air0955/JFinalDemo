@@ -18,8 +18,8 @@ public class DemoConfig extends JFinalConfig {
     me.setDevMode(true);
   } 
   public void configRoute(Routes me) { 
-//  me.add("/hello", HelloController.class);
-me.add("/inputTest",HelloController.class);
+    me.add("/hello", HelloController.class);
+    me.add("/inputTest",HelloController.class);
   } 
   public void configPlugin(Plugins me) {
 	  C3p0Plugin cp = new C3p0Plugin("jdbc:oracle:thin:@134.96.70.241:1521:zjcsc","zjcsc517","cft67ujm");
@@ -30,7 +30,6 @@ me.add("/inputTest",HelloController.class);
 	  arp.setDialect(new OracleDialect());
 	  arp.setContainerFactory(new CaseInsensitiveContainerFactory());
 	  arp.addMapping("pr_order_sms_log", Pr_order_sms_logModel.class);
-	  
   } 
   public void configInterceptor(Interceptors me) {} 
   public void configHandler(Handlers me) {
@@ -38,9 +37,5 @@ me.add("/inputTest",HelloController.class);
 	  
   } 
   
-  public void TestGit(){
-	  System.out.println("2222");
-	  System.out.println("3333");
-  }
   
 } 
