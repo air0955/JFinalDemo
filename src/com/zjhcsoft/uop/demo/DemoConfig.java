@@ -27,7 +27,6 @@ public class DemoConfig extends JFinalConfig {
   public void configRoute(Routes me) {
 	  me.add(new Route_zhaoyz());
 	  me.add(new Route_gulc());
-	
   } 
   
   
@@ -47,9 +46,7 @@ public class DemoConfig extends JFinalConfig {
   public void configInterceptor(Interceptors me) {} 
   
   
-  public void configHandler(Handlers me) {
-	  me.add(new ContextPathHandler());
-  } 
+  public void configHandler(Handlers me) {} 
   
   
 } 
