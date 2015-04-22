@@ -1,4 +1,4 @@
-package demo; 
+package com.zjhcsoft.uop.demo; 
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
 import com.jfinal.config.Interceptors;
@@ -11,7 +11,9 @@ import com.jfinal.plugin.activerecord.CaseInsensitiveContainerFactory;
 import com.jfinal.plugin.activerecord.dialect.OracleDialect;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.render.ViewType;
-import com.zjhcsoft.uop.UserManage_Controller;
+import com.zjhcsoft.uop.demo.models.S_userModel;
+import com.zjhcsoft.uop.demo.routes.Route_gulc;
+import com.zjhcsoft.uop.demo.routes.Route_zhaoyz;
 
 public class DemoConfig extends JFinalConfig { 
 	
@@ -23,8 +25,9 @@ public class DemoConfig extends JFinalConfig {
   
   
   public void configRoute(Routes me) {
-	me.add("/userManage",UserManage_Controller.class);  
-    me.add("/inputTest",HelloController.class);
+	  me.add(new Route_zhaoyz());
+	  me.add(new Route_gulc());
+	
   } 
   
   
@@ -37,7 +40,7 @@ public class DemoConfig extends JFinalConfig {
 	  me.add(arp);
 	  arp.setDialect(new OracleDialect());
 	  arp.setContainerFactory(new CaseInsensitiveContainerFactory());
-	  arp.addMapping("S_USER", S_user.class);
+	  arp.addMapping("S_USER", S_userModel.class);
   } 
   
   

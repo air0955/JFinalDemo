@@ -1,4 +1,4 @@
-package demo;
+package com.zjhcsoft.uop.demo.interceptors;
 
 import com.jfinal.aop.Interceptor;
 import com.jfinal.core.ActionInvocation;
