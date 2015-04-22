@@ -11,8 +11,6 @@ public class HelloController extends Controller {
   @Before(DemoInterceptor.class)
   public void helloTest(){
 	  String name = getPara("helloName");
-	  Pr_order_sms_logModel.dao.set("id", "seq_app.nextval").set("receiveNums", "18958003903")
-	  .set("sms_content", "JFinal_Test").save();
 	  name = name+"headle";
 	  setAttr("helloStr",name);
 //	  render("/demoView/demoHTML.html");
