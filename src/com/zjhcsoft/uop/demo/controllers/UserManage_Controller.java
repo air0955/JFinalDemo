@@ -20,6 +20,8 @@ public class UserManage_Controller extends Controller {
 	}
 	
 	public void user_add(){
+//		S_userModel s_user = getModel(S_userModel.class);
+//		s_user.save();
 		String username = getPara("username");
 		String userViewname = getPara("userViewname");
 		String psword = getPara("psword");
@@ -27,7 +29,8 @@ public class UserManage_Controller extends Controller {
 		new_user.set("id", "seq_app.nextval").set("name", username).set("Viewname", userViewname).set("passwd", psword)
 		.set("sts","A").set("user_type", "UOP_admin");
 		new_user.save();
-		redirect("user_list");
+		user_list();
+//		redirect("user_list");
 		return;
 	}
 

@@ -42,7 +42,7 @@ public class DemoConfig extends JFinalConfig {
 	  arp.setDialect(new OracleDialect());
 	  arp.setContainerFactory(new CaseInsensitiveContainerFactory());
 	  arp.addMapping("S_USER", S_userModel.class);
-  } 
+  }
   
   
   public void configInterceptor(Interceptors me) {} 
