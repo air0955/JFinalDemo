@@ -19,6 +19,7 @@
 </div>
 
 <div>
+
    <form action="/userManage/user_add" method="post" id="user_reg_form">
        <p>管理员账号名：<input type="text" name="s_userModel.name" id="username" value=""/></p>
        <p>管理员账号显示名称：<input type="text" name="s_userModel.viewname" id="userViewname" value=""/></p>
@@ -53,6 +54,7 @@ $j('#form_sub').click(function(e){
 	e.preventDefault();
     $j('#user_reg_form').submit();
 })
+
 
 
 
