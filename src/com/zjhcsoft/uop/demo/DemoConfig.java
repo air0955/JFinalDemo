@@ -5,6 +5,7 @@ import com.jfinal.config.Interceptors;
 import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
+import com.jfinal.core.JFinal;
 import com.jfinal.ext.handler.ContextPathHandler;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.CaseInsensitiveContainerFactory;
@@ -19,7 +20,7 @@ public class DemoConfig extends JFinalConfig {
 	
   public void configConstant(Constants me) {
 	// 加载少量必要配置，随后可用getProperty(...)获取值
-	loadPropertyFile("conn.properties");
+	loadPropertyFile("mysql.conn.properties");
 	me.setViewType(ViewType.FREE_MARKER);
     me.setDevMode(true);
   } 
@@ -39,9 +40,9 @@ public class DemoConfig extends JFinalConfig {
 	  cp.setDriverClass(getProperty("jdbcdrive"));
 	  ActiveRecordPlugin arp = new ActiveRecordPlugin(cp);
 	  me.add(arp);
-	  arp.setDialect(new OracleDialect());
-	  arp.setContainerFactory(new CaseInsensitiveContainerFactory());
-	  arp.addMapping("S_USER", S_userModel.class);
+//	  arp.setDialect(new OracleDialect());
+//	  arp.setContainerFactory(new CaseInsensitiveContainerFactory());
+	  arp.addMapping("s_user", S_userModel.class);
   } 
   
   
@@ -50,5 +51,8 @@ public class DemoConfig extends JFinalConfig {
   
   public void configHandler(Handlers me) {} 
   
-  
+  public static void main(String[] args) {
+	JFinal.start();
+  }
+ 
 } 
