@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>UserList</title>
+<script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
+</head>
+<body>
+<div>
+   <h1>统一能力平台管理员列表</h1>
+     <#if (u_list?? & u_list?size >0)>
+       <table>
+         <tr><td>管理员账号名</td><td>显示名称</td><td>状态</td></tr>
+         <#list  u_list as user>
+            <tr><td>${(user.name)!''}</td><td>${(user.viewname)!''}</td><td>${(user.sts)!''}</td></tr>
+         </#list>
+        </table>
+     </#if>
+</div>
+
+<div>
+   <form action="/userManage/user_add" method="post" id="user_reg_form">
+       <p>管理员账号名：<input type="text" name="s_userModel.name" id="username" value=""/></p>
+       <p>管理员账号显示名称：<input type="text" name="s_userModel.viewname" id="userViewname" value=""/></p>
+       <p>管理员密码：<input type="password" name="s_userModel.passwd" id="passwd"  value=""/></p>
+       <p>管理员密码确认：<input type="password" name="psword_check" id="psword_check"  value=""/></p>
+       <p><button id="form_sub">表单提交</button><button id="ajax_sub">ajax提交</button></p>   
+   </form>
+</div>
+<br>
+
+
+<div>
+  <form action="/userManage/file_upload" method="post" enctype="multipart/form-data">
+      <input type="file" name="img" />
+      <input type="submit" value="提交文件" />
+   </form>
+</div>
+<br>
+
+<a id="file" href="/userManage/getDatabyURL?param1=zhaoyz&param2=18958003903">URL形式提交参数，参数内容:param1=zhaoyz,param2=18958003903</a><br>
+<br>
+
+<a id="file" href="/userManage/file_download">下载统一平台高层设计文档</a><br>
+
+
+
+</body>
+<script type="text/javascript">
+var $j=jQuery.noConflict();
+
+$j('#form_sub').click(function(e){
+	e.preventDefault();
+    $j('#user_reg_form').submit();
+})
+
+
+
+
+$j('#ajax_sub').click(function(e){
+	e.preventDefault();
+	$j.ajax({
+		url: '/userManage/user_ajax_add',
+		type: 'POST',
+		data: {'username':$j('#username').val(),'userViewname':$j('#userViewname').val(),'passwd':$j('#passwd').val()},
+		dateType: 'json',
+		beforeSend: function(){
+			alert('请稍候.......');
+		},
+		error: function(){
+			alert('系统繁忙，请稍候再试！')
+		},
+		success: function(data){
+			var result_flag=data.result_flag;
+			if(result_flag == 'Success'){
+				alert('新增管理员成功');
+				var u_list = data.u_list;
+				for(var i=0;i<u_list.length;i++){
+					var username = u_list[i].NAME;
+					consolo.log(username);             
+				}
+				window.location.href='/userManage/user_list';
+			}else{
+				alert('新增管理员失败');
+			}
+		}
+	});
+})
+
+
+
+
+</script>
+</html>
