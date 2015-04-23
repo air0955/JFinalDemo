@@ -5,16 +5,17 @@ import com.jfinal.config.Interceptors;
 import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
-import com.jfinal.core.JFinal;
-import com.jfinal.ext.handler.ContextPathHandler;
+import com.jfinal.kit.PathKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.CaseInsensitiveContainerFactory;
 import com.jfinal.plugin.activerecord.dialect.OracleDialect;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.render.ViewType;
+import com.zjhcsoft.uop.demo.handlers.PathMapHandle;
+import com.zjhcsoft.uop.demo.interceptors.GlobleInterceptor;
 import com.zjhcsoft.uop.demo.models.S_userModel;
-import com.zjhcsoft.uop.demo.routes.Route_gulc;
 import com.zjhcsoft.uop.demo.routes.RouteDemo;
+import com.zjhcsoft.uop.demo.routes.Route_gulc;
 
 public class DemoConfig extends JFinalConfig { 
 	
@@ -23,6 +24,8 @@ public class DemoConfig extends JFinalConfig {
 	loadPropertyFile("mysql.conn.properties");
 	me.setViewType(ViewType.FREE_MARKER);
     me.setDevMode(true);
+    me.setFileRenderPath("/userManage/download");
+    me.setUploadedFileSaveDirectory(PathKit.getWebRootPath()+"/userManage/upload");
   } 
   
   
@@ -40,16 +43,20 @@ public class DemoConfig extends JFinalConfig {
 	  cp.setDriverClass(getProperty("jdbcdrive"));
 	  ActiveRecordPlugin arp = new ActiveRecordPlugin(cp);
 	  me.add(arp);
-//	  arp.setDialect(new OracleDialect());
-//	  arp.setContainerFactory(new CaseInsensitiveContainerFactory());
-	  arp.addMapping("s_user", S_userModel.class);
+	  arp.setDialect(new OracleDialect());
+	  arp.setContainerFactory(new CaseInsensitiveContainerFactory());
+	  arp.addMapping("S_USER", S_userModel.class);
+  }
+  
+  
+  public void configInterceptor(Interceptors me) {
+	  me.add(new GlobleInterceptor());
   } 
   
   
-  public void configInterceptor(Interceptors me) {} 
-  
-  
-  public void configHandler(Handlers me) {} 
+  public void configHandler(Handlers me) {
+	    me.add(new PathMapHandle());
+  } 
   
   public static void main(String[] args) {
 	JFinal.start();
