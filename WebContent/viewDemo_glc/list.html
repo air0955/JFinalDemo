@@ -1,0 +1,20 @@
+<html>
+	
+	<head>
+
+	</head>
+	<body>
+	  <table>
+	  <tr><td>id</td><td>viewname</td><td>name</td><td></td><td></td></tr>
+		<#list users.list as user>
+		  <tr><td>${user.id!"NULL"}</td><td>${user.viewname!"NULL"}</td><td>${user.name!"NULL"}</td><td><a href="/viewDemo_glc/delete?id=${user.id}">删除</a></td><td><a href="/viewDemo_glc/modify/${user.id}">修改</a></td></tr>
+		</#list>
+		</table>
+		
+		${true?string("1000","2")}
+	
+			
+		${users.pageNumber}
+		${users.totalPage}
+	</body>
+</html>

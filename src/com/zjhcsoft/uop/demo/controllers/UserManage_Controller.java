@@ -13,11 +13,14 @@ import com.zjhcsoft.uop.demo.models.S_userModel;
  *
  */
 public class UserManage_Controller extends Controller {
+	
 	public void user_list(){
 		List u_list = S_userModel.dao.find("select * from s_user where user_type = 'UOP_admin'");
 		setAttr("u_list", u_list);
 		return;
 	}
+	
+	
 	
 	public void user_add(){
 		String username = getPara("username");
@@ -30,5 +33,9 @@ public class UserManage_Controller extends Controller {
 		redirect("user_list");
 		return;
 	}
+	
+	
+	
+
 
 }
