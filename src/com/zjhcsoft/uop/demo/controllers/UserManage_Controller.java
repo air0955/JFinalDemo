@@ -27,7 +27,8 @@ public class UserManage_Controller extends Controller {
 	public void user_list(){
 		List u_list = S_userModel.dao.find("select * from s_user where user_type = ? and sts = ?","UOP_admin","A");
 		setAttr("u_list", u_list);
-		return;
+		render("user_list.html");
+	    return;
 	}
 	
 	
@@ -63,12 +64,13 @@ public class UserManage_Controller extends Controller {
 			@Override
 			public boolean run() throws SQLException {
 				// TODO Auto-generated method stub
-				Record r1 = new Record().set("ID", "seq_app.nextval").set("VIEWNAME","杭州统一平台测试账号")
+				Record r1 = new MyRecord().set("ID", "seq_app.nextval").set("VIEWNAME","杭州统一平台测试账号")
 						.set("USER_TYPE", "UOP_admin").set("NAME", "zhaoyz_batch_01").set("CREATE_DATE", new Date());
 				Db.save("s_user", r1);
-				Record r2 = new Record().set("ID", "seq_app.nextval").set("VIEWNAME","杭州统一平台测试账号")
+				Record r2 = new MyRecord().set("ID", "seq_app.nextval").set("VIEWNAME","杭州统一平台测试账号")
 						.set("USER_TYPE", "UOP_admin").set("NAME", "zhaoyz_batch_02").set("CREATE_DATE", new Date());
 				Db.save("s_user", r2);
+				// 返回false则事务回滚，true则提交事务
 				return false;
 			}
 		});
