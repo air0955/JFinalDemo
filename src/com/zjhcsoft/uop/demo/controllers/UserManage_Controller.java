@@ -3,13 +3,15 @@
  */
 package com.zjhcsoft.uop.demo.controllers;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
 import com.jfinal.aop.Before;
-import com.jfinal.aop.ClearInterceptor;
-import com.jfinal.aop.ClearLayer;
 import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.IAtom;
+import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.upload.UploadFile;
 import com.zjhcsoft.uop.demo.interceptors.DemoInterceptor;
 import com.zjhcsoft.uop.demo.models.S_userModel;
@@ -23,7 +25,7 @@ public class UserManage_Controller extends Controller {
 	
 	// 通过@ClearInterceptor和@ClearInterceptor(ClearLayer.ALL)来清除上一级或者全部的拦截器
 	public void user_list(){
-		List u_list = S_userModel.dao.find("select * from s_user where user_type = 'UOP_admin'");
+		List u_list = S_userModel.dao.find("select * from s_user where user_type = ? and sts = ?","UOP_admin","A");
 		setAttr("u_list", u_list);
 		return;
 	}
@@ -33,14 +35,7 @@ public class UserManage_Controller extends Controller {
 	// 表单提交数据
 	public void user_add(){
 		S_userModel new_user = getModel(S_userModel.class);
-//		String username = getPara("username");
-//		String userViewname = getPara("userViewname");
-//		String psword = getPara("psword");
-//		new_user.set("id", "seq_app.nextval").set("name", username).set("Viewname", userViewname).set("passwd", psword)
-//		.set("sts","A").set("user_type", "UOP_admin").set("create_date",new Date());
-		new_user.set("id", "seq_app.nextval").set("sts","A").set("user_type", "UOP_admin").set("create_date",new Date());
-		new_user.save();
-		
+		new_user.set("id", "seq_app.nextval").set("user_type", "UOP_admin111").set("create_date", new Date()).save();
 		user_list();                // 也可使用redirect("user_list");
 		return;
 	}
@@ -60,6 +55,25 @@ public class UserManage_Controller extends Controller {
 		setAttr("result_flag", "Success");
 		renderJson();
 		return;
+	}
+	
+	// 事务控制
+	public void user_batch_add(){
+		boolean success = Db.tx(new IAtom() {
+			@Override
+			public boolean run() throws SQLException {
+				// TODO Auto-generated method stub
+				Record r1 = new Record().set("ID", "seq_app.nextval").set("VIEWNAME","杭州统一平台测试账号")
+						.set("USER_TYPE", "UOP_admin").set("NAME", "zhaoyz_batch_01").set("CREATE_DATE", new Date());
+				Db.save("s_user", r1);
+				Record r2 = new Record().set("ID", "seq_app.nextval").set("VIEWNAME","杭州统一平台测试账号")
+						.set("USER_TYPE", "UOP_admin").set("NAME", "zhaoyz_batch_02").set("CREATE_DATE", new Date());
+				Db.save("s_user", r2);
+				return false;
+			}
+		});
+		renderFreeMarker("user_list.html");
+		
 	}
 	
 	// url后面配置参数传值

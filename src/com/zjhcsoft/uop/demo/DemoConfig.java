@@ -5,9 +5,11 @@ import com.jfinal.config.Interceptors;
 import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
+import com.jfinal.core.JFinal;
 import com.jfinal.kit.PathKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.CaseInsensitiveContainerFactory;
+import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.dialect.OracleDialect;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.render.ViewType;
@@ -21,7 +23,7 @@ public class DemoConfig extends JFinalConfig {
 	
   public void configConstant(Constants me) {
 	// 加载少量必要配置，随后可用getProperty(...)获取值
-	loadPropertyFile("mysql.conn.properties");
+	loadPropertyFile("conn.properties");
 	me.setViewType(ViewType.FREE_MARKER);
     me.setDevMode(true);
     me.setFileRenderPath("/userManage/download");
@@ -45,7 +47,7 @@ public class DemoConfig extends JFinalConfig {
 	  me.add(arp);
 	  arp.setDialect(new OracleDialect());
 	  arp.setContainerFactory(new CaseInsensitiveContainerFactory());
-	  arp.addMapping("S_USER", S_userModel.class);
+	  arp.addMapping("S_USER", (Class<? extends Model<?>>) S_userModel.class);
   }
   
   
