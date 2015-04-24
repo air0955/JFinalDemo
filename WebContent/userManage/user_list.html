@@ -31,6 +31,9 @@
 <br>
 
 
+<a id="date_batch_insert" href="/userManage/user_batch_add">通过事务控制批量插入操作</a><br>
+<br>
+
 <div>
   <form action="/userManage/file_upload" method="post" enctype="multipart/form-data">
       <input type="file" name="img" />
@@ -39,10 +42,12 @@
 </div>
 <br>
 
-<a id="file" href="/userManage/getDatabyURL?param1=zhaoyz&param2=18958003903">URL形式提交参数，参数内容:param1=zhaoyz,param2=18958003903</a><br>
+<a id="URl_get" href="/userManage/getDatabyURL?param1=zhaoyz&param2=18958003903">URL形式提交参数，参数内容:param1=zhaoyz,param2=18958003903</a><br>
 <br>
 
 <a id="file" href="/userManage/file_download">下载统一平台高层设计文档</a><br>
+
+
 
 
 
@@ -79,7 +84,7 @@ $j('#ajax_sub').click(function(e){
 				var u_list = data.u_list;
 				for(var i=0;i<u_list.length;i++){
 					var username = u_list[i].NAME;
-					consolo.log(username);             
+					console.log(username);             
 				}
 				window.location.href='/userManage/user_list';
 			}else{
